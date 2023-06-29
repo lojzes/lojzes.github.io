@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-beta.61" />
+    <meta name="theme" content="VuePress Theme Hope" />
+    <meta property="og:url" content="https://vuepress-theme-hope-docs-demo.netlify.app/study/web/vue/vue%E7%BB%84%E4%BB%B6.html"><meta property="og:site_name" content="JavaNative"><meta property="og:title" content="vue组件"><meta property="og:description" content="组件 使用 component 注册组件 父组件 向 子组件传值： 父组件通过 v-bind:属性 传出 子组件 通过 props 属性接收 var app = Vue.createApp({ data() { return { list: [ 'java', 'go', 'c++' ], inputValue: '输入框的内容', btnTitile: '我是title' }; }, template: ` &lt;div&gt; &lt;button v-bind:title=btnTitile&gt;点击&lt;/button&gt; &lt;input v-model=inputValue&gt; &lt;input v-model:value=inputValue&gt; &lt;ul&gt; &lt;todo-item v-for="(item,index) of list" v-bind:content=item&gt; &lt;/todo-item&gt; &lt;/ul&gt; &lt;/div&gt; `, }) // 注册组件 app.component('todo-item',{ // data() { // return { // item:'123' // } // }, props:[ 'content' ], template: ` &lt;div&gt;{{content}}&lt;/div&gt; ` }) // 然后挂载 app.mount("#app");"><meta property="og:type" content="article"><meta property="og:image" content="https://vuepress-theme-hope-docs-demo.netlify.app/"><meta property="og:locale" content="zh-CN"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image:alt" content="vue组件"><meta property="article:author" content="lojzes"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"vue组件","image":["https://vuepress-theme-hope-docs-demo.netlify.app/"],"dateModified":null,"author":[{"@type":"Person","name":"lojzes","url":""}]}</script><title>vue组件 | JavaNative</title><meta name="description" content="组件 使用 component 注册组件 父组件 向 子组件传值： 父组件通过 v-bind:属性 传出 子组件 通过 props 属性接收 var app = Vue.createApp({ data() { return { list: [ 'java', 'go', 'c++' ], inputValue: '输入框的内容', btnTitile: '我是title' }; }, template: ` &lt;div&gt; &lt;button v-bind:title=btnTitile&gt;点击&lt;/button&gt; &lt;input v-model=inputValue&gt; &lt;input v-model:value=inputValue&gt; &lt;ul&gt; &lt;todo-item v-for="(item,index) of list" v-bind:content=item&gt; &lt;/todo-item&gt; &lt;/ul&gt; &lt;/div&gt; `, }) // 注册组件 app.component('todo-item',{ // data() { // return { // item:'123' // } // }, props:[ 'content' ], template: ` &lt;div&gt;{{content}}&lt;/div&gt; ` }) // 然后挂载 app.mount("#app");">
+    <style>
+      :root {
+        --bg-color: #fff;
+      }
+
+      html[data-theme="dark"] {
+        --bg-color: #1d1e1f;
+      }
+
+      html,
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <link rel="preload" href="/assets/style-14c79648.css" as="style"><link rel="stylesheet" href="/assets/style-14c79648.css">
+    <link rel="modulepreload" href="/assets/app-82975e45.js"><link rel="modulepreload" href="/assets/framework-b6ea3384.js"><link rel="modulepreload" href="/assets/vue组件.html-58145096.js"><link rel="modulepreload" href="/assets/vue组件.html-6d60b146.js">
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="skip-link sr-only">跳至主要內容</a><!--]--><!--[--><div class="theme-container has-toc"><!--[--><header class="navbar" id="navbar"><div class="navbar-start"><button type="button" class="toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><a href="/" class="brand"><img class="logo" src="/logo.svg" alt="JavaNative"><!----><span class="site-name hide-in-pad">JavaNative</span></a><!--[--><!----><!--]--></div><div class="navbar-center"><!--[--><!----><!--]--><nav class="nav-links"><div class="nav-item hide-in-mobile"><a href="/" class="nav-link" aria-label="首页"><span class="font-icon icon iconfont icon-home" style=""></span>首页<!----></a></div><div class="nav-item hide-in-mobile"><a href="/interview/" class="nav-link" aria-label="面试资料"><span class="font-icon icon iconfont icon-discover" style=""></span>面试资料<!----></a></div><div class="nav-item hide-in-mobile"><a href="/study/" class="nav-link active" aria-label="学习笔记"><span class="font-icon icon iconfont icon-discover" style=""></span>学习笔记<!----></a></div><div class="nav-item hide-in-mobile"><a href="/work/" class="nav-link" aria-label="工作笔记"><span class="font-icon icon iconfont icon-discover" style=""></span>工作笔记<!----></a></div></nav><!--[--><!----><!--]--></div><div class="navbar-end"><!--[--><!----><!--]--><!----><!----><div class="nav-item hide-in-mobile"><button type="button" class="outlook-button" tabindex="-1" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" class="icon outlook-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="outlook icon"><path d="M224 800c0 9.6 3.2 44.8 6.4 54.4 6.4 48-48 76.8-48 76.8s80 41.6 147.2 0 134.4-134.4 38.4-195.2c-22.4-12.8-41.6-19.2-57.6-19.2C259.2 716.8 227.2 761.6 224 800zM560 675.2l-32 51.2c-51.2 51.2-83.2 32-83.2 32 25.6 67.2 0 112-12.8 128 25.6 6.4 51.2 9.6 80 9.6 54.4 0 102.4-9.6 150.4-32l0 0c3.2 0 3.2-3.2 3.2-3.2 22.4-16 12.8-35.2 6.4-44.8-9.6-12.8-12.8-25.6-12.8-41.6 0-54.4 60.8-99.2 137.6-99.2 6.4 0 12.8 0 22.4 0 12.8 0 38.4 9.6 48-25.6 0-3.2 0-3.2 3.2-6.4 0-3.2 3.2-6.4 3.2-6.4 6.4-16 6.4-16 6.4-19.2 9.6-35.2 16-73.6 16-115.2 0-105.6-41.6-198.4-108.8-268.8C704 396.8 560 675.2 560 675.2zM224 419.2c0-28.8 22.4-51.2 51.2-51.2 28.8 0 51.2 22.4 51.2 51.2 0 28.8-22.4 51.2-51.2 51.2C246.4 470.4 224 448 224 419.2zM320 284.8c0-22.4 19.2-41.6 41.6-41.6 22.4 0 41.6 19.2 41.6 41.6 0 22.4-19.2 41.6-41.6 41.6C339.2 326.4 320 307.2 320 284.8zM457.6 208c0-12.8 12.8-25.6 25.6-25.6 12.8 0 25.6 12.8 25.6 25.6 0 12.8-12.8 25.6-25.6 25.6C470.4 233.6 457.6 220.8 457.6 208zM128 505.6C128 592 153.6 672 201.6 736c28.8-60.8 112-60.8 124.8-60.8-16-51.2 16-99.2 16-99.2l316.8-422.4c-48-19.2-99.2-32-150.4-32C297.6 118.4 128 291.2 128 505.6zM764.8 86.4c-22.4 19.2-390.4 518.4-390.4 518.4-22.4 28.8-12.8 76.8 22.4 99.2l9.6 6.4c35.2 22.4 80 12.8 99.2-25.6 0 0 6.4-12.8 9.6-19.2 54.4-105.6 275.2-524.8 288-553.6 6.4-19.2-3.2-32-19.2-32C777.6 76.8 771.2 80 764.8 86.4z"></path></svg><div class="outlook-dropdown"><!----></div></button></div><form class="search-box" role="search"><input type="search" placeholder="搜索" autocomplete="off" spellcheck="false" value><!----></form><!--[--><!----><!--]--><button type="button" class="toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span class="button-container"><span class="button-top"></span><span class="button-middle"></span><span class="button-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside class="sidebar" id="sidebar"><!--[--><!----><!--]--><ul class="sidebar-links"><li><section class="sidebar-group"><p class="sidebar-heading"><span class="font-icon icon iconfont icon-java" style=""></span><span class="title">Java</span><!----></p><ul class="sidebar-links"><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-jvm" style=""></span><span class="title">jvm</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-线程池" style=""></span><span class="title">线程池</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-函数式编程" style=""></span><span class="title">函数式编程</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-consistenthash" style=""></span><span class="title">一致性hash</span><span class="arrow end"></span></button><!----></section></li></ul></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-designpattern" style=""></span><span class="title">designpattern</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-spring" style=""></span><span class="title">spring</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-springboot" style=""></span><span class="title">springboot</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-springmvc" style=""></span><span class="title">springmvc</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-tomcat" style=""></span><span class="title">tomcat</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-elasticsearch" style=""></span><span class="title">elasticsearch</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-mongodb" style=""></span><span class="title">mongodb</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><p class="sidebar-heading active"><span class="font-icon icon iconfont icon-web" style=""></span><span class="title">前端学习</span><!----></p><ul class="sidebar-links"><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-css" style=""></span><span class="title">css</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-html" style=""></span><span class="title">html</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-js" style=""></span><span class="title">js</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-jquery" style=""></span><span class="title">jQuery</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable active" type="button"><span class="font-icon icon iconfont icon-vue" style=""></span><span class="title">vue</span><span class="arrow down"></span></button><ul class="sidebar-links"><li><!--[--><a href="/study/web/vue/vue%E5%9F%BA%E7%A1%80.html" class="nav-link sidebar-link sidebar-page" aria-label="vue基础"><span class="font-icon icon iconfont icon-discover" style=""></span>vue基础<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html" class="router-link-active router-link-exact-active nav-link active sidebar-link sidebar-page active" aria-label="vue组件"><span class="font-icon icon iconfont icon-discover" style=""></span>vue组件<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#组件" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="组件"><!---->组件<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#全局组件" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="全局组件"><!---->全局组件<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#组件间传值" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="组件间传值"><!---->组件间传值<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#non-props" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="Non Props"><!---->Non Props<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#子组件通过-emit-事件-告诉父组件修改行为" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="子组件通过 $emit 事件， 告诉父组件修改行为"><!---->子组件通过 $emit 事件， 告诉父组件修改行为<!----></a><ul class="sidebar-sub-headers"></ul></li></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#插槽-slot" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="插槽 slot"><!---->插槽 slot<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#动态组件" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="动态组件"><!---->动态组件<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#异步组件" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="异步组件"><!---->异步组件<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#组件深入" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="组件深入"><!---->组件深入<!----></a><ul class="sidebar-sub-headers"></ul></li></ul><!--]--></li><li><!--[--><a href="/study/web/vue/vue%E9%AB%98%E7%BA%A7.html" class="nav-link sidebar-link sidebar-page" aria-label="vue高级"><span class="font-icon icon iconfont icon-discover" style=""></span>vue高级<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/study/web/vue/vue3%E6%96%B0%E8%AF%AD%E6%B3%95.html" class="nav-link sidebar-link sidebar-page" aria-label="vue3新语法"><span class="font-icon icon iconfont icon-discover" style=""></span>vue3新语法<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/study/web/vue/vue%E9%A1%B9%E7%9B%AE%E7%BB%8F%E9%AA%8C.html" class="nav-link sidebar-link sidebar-page" aria-label="vue项目经验"><span class="font-icon icon iconfont icon-discover" style=""></span>vue项目经验<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/study/web/vue/vue%E8%84%9A%E6%89%8B%E6%9E%B6.html" class="nav-link sidebar-link sidebar-page" aria-label="vue脚手架开"><span class="font-icon icon iconfont icon-discover" style=""></span>vue脚手架开<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/study/web/vue/vue%E5%8A%A8%E7%94%BB.html" class="nav-link sidebar-link sidebar-page" aria-label="vue动画"><span class="font-icon icon iconfont icon-discover" style=""></span>vue动画<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li></ul></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-nvm-npx" style=""></span><span class="title">nvm-npx</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-webpack" style=""></span><span class="title">webpack</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-bootstrap" style=""></span><span class="title">bootstrap</span><span class="arrow end"></span></button><!----></section></li></ul></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="title">跨域</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="title">git笔记</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="title">c语言</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="title">数据结构</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="title">go语言</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="title">linux笔记</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="title">正则表达式</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="title">字符集</span><span class="arrow end"></span></button><!----></section></li><li><!--[--><a href="/study/tutorial" class="nav-link sidebar-link sidebar-page" aria-label="常用框架"><span class="font-icon icon iconfont icon-book" style=""></span>常用框架<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/study/tutorial" class="nav-link sidebar-link sidebar-page" aria-label="中间件"><span class="font-icon icon iconfont icon-book" style=""></span>中间件<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/study/tutorial" class="nav-link sidebar-link sidebar-page" aria-label="分布式"><span class="font-icon icon iconfont icon-book" style=""></span>分布式<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li></ul><!--[--><!----><!--]--></aside><!--[--><main class="page" id="main-content"><!--[--><!----><nav class="breadcrumb disable"></nav><div class="page-title"><h1><span class="font-icon icon iconfont icon-discover" style=""></span>vue组件</h1><div class="page-info"><span class="page-author-info" aria-label="作者🖊" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon author-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="author icon"><path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z"></path></svg><span><span class="page-author-item">lojzes</span></span><span property="author" content="lojzes"></span></span><span class="page-category-info" aria-label="分类🌈" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon category-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="category icon"><path d="M148.41 106.992h282.176c22.263 0 40.31 18.048 40.31 40.31V429.48c0 22.263-18.047 40.31-40.31 40.31H148.41c-22.263 0-40.311-18.047-40.311-40.31V147.302c0-22.263 18.048-40.31 40.311-40.31zM147.556 553.478H429.73c22.263 0 40.311 18.048 40.311 40.31v282.176c0 22.263-18.048 40.312-40.31 40.312H147.555c-22.263 0-40.311-18.049-40.311-40.312V593.79c0-22.263 18.048-40.311 40.31-40.311zM593.927 106.992h282.176c22.263 0 40.31 18.048 40.31 40.31V429.48c0 22.263-18.047 40.31-40.31 40.31H593.927c-22.263 0-40.311-18.047-40.311-40.31V147.302c0-22.263 18.048-40.31 40.31-40.31zM730.22 920.502H623.926c-40.925 0-74.22-33.388-74.22-74.425V623.992c0-41.038 33.387-74.424 74.425-74.424h222.085c41.038 0 74.424 33.226 74.424 74.067v114.233c0 10.244-8.304 18.548-18.547 18.548s-18.548-8.304-18.548-18.548V623.635c0-20.388-16.746-36.974-37.33-36.974H624.13c-20.585 0-37.331 16.747-37.331 37.33v222.086c0 20.585 16.654 37.331 37.126 37.331H730.22c10.243 0 18.547 8.304 18.547 18.547 0 10.244-8.304 18.547-18.547 18.547z"></path></svg><span class="page-category-item category6 clickable" role="navigation">学习笔记</span><meta property="articleSection" content="学习笔记"></span><!----><!----><!----><!----><span class="page-reading-time-info" aria-label="阅读时间⌛" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 6 分钟</span><meta property="timeRequired" content="PT6M"></span><span class="page-word-info" aria-label="字数🔠" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon word-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="word icon"><path d="M518.217 432.64V73.143A73.143 73.143 0 01603.43 1.097a512 512 0 01419.474 419.474 73.143 73.143 0 01-72.046 85.212H591.36a73.143 73.143 0 01-73.143-73.143z"></path><path d="M493.714 566.857h340.297a73.143 73.143 0 0173.143 85.577A457.143 457.143 0 11371.566 117.76a73.143 73.143 0 0185.577 73.143v339.383a36.571 36.571 0 0036.571 36.571z"></path></svg><span>约 1674 字</span><meta property="wordCount" content="1674"></span></div><hr></div><div class="toc-place-holder"><aside id="toc"><!--[--><!----><!--]--><div class="toc-header">此页内容<button type="button" class="print-button" title="打印"><svg xmlns="http://www.w3.org/2000/svg" class="icon print-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="print icon"><path d="M819.2 364.8h-44.8V128c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v236.8h-44.8C145.067 364.8 96 413.867 96 473.6v192c0 59.733 49.067 108.8 108.8 108.8h44.8V896c0 17.067 14.933 32 32 32h460.8c17.067 0 32-14.933 32-32V774.4h44.8c59.733 0 108.8-49.067 108.8-108.8v-192c0-59.733-49.067-108.8-108.8-108.8zM313.6 160h396.8v204.8H313.6V160zm396.8 704H313.6V620.8h396.8V864zM864 665.6c0 25.6-19.2 44.8-44.8 44.8h-44.8V588.8c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v121.6h-44.8c-25.6 0-44.8-19.2-44.8-44.8v-192c0-25.6 19.2-44.8 44.8-44.8h614.4c25.6 0 44.8 19.2 44.8 44.8v192z"></path></svg></button></div><div class="toc-wrapper"><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#组件" class="router-link-active router-link-exact-active toc-link level2">组件</a></li><li><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#全局组件" class="router-link-active router-link-exact-active toc-link level3">全局组件</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#组件间传值" class="router-link-active router-link-exact-active toc-link level3">组件间传值</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#non-props" class="router-link-active router-link-exact-active toc-link level3">Non Props</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#子组件通过-emit-事件-告诉父组件修改行为" class="router-link-active router-link-exact-active toc-link level3">子组件通过 $emit 事件， 告诉父组件修改行为</a></li><!----><!--]--></ul></li><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#插槽-slot" class="router-link-active router-link-exact-active toc-link level2">插槽 slot</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#动态组件" class="router-link-active router-link-exact-active toc-link level2">动态组件</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#异步组件" class="router-link-active router-link-exact-active toc-link level2">异步组件</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/vue/vue%E7%BB%84%E4%BB%B6.html#组件深入" class="router-link-active router-link-exact-active toc-link level2">组件深入</a></li><!----><!--]--></ul></div><!--[--><!----><!--]--></aside></div><!----><div class="theme-hope-content"><h2 id="组件" tabindex="-1"><a class="header-anchor" href="#组件" aria-hidden="true">#</a> 组件</h2><p>使用 <code>component</code> 注册组件</p><p>父组件 向 子组件传值：</p><p>父组件通过 <code>v-bind:属性</code> 传出 子组件 通过 <code>props</code> 属性接收</p><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code> <span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">list</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token string">&#39;java&#39;</span><span class="token punctuation">,</span> <span class="token string">&#39;go&#39;</span><span class="token punctuation">,</span> <span class="token string">&#39;c++&#39;</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">inputValue</span><span class="token operator">:</span> <span class="token string">&#39;输入框的内容&#39;</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">btnTitile</span><span class="token operator">:</span> <span class="token string">&#39;我是title&#39;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+        &lt;div&gt;
+           &lt;button v-bind:title=btnTitile&gt;点击&lt;/button&gt;
+           &lt;input v-model=inputValue&gt;
+           &lt;input v-model:value=inputValue&gt;
+            &lt;ul&gt;
+               &lt;todo-item v-for=&quot;(item,index) of list&quot; v-bind:content=item&gt;
+                &lt;/todo-item&gt;
+             &lt;/ul&gt;
+        &lt;/div&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// 注册组件</span>
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;todo-item&#39;</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+    <span class="token comment">// data() {</span>
+    <span class="token comment">//   return {</span>
+    <span class="token comment">//       item:&#39;123&#39;   </span>
+    <span class="token comment">//   }</span>
+    <span class="token comment">// },</span>
+    <span class="token literal-property property">props</span><span class="token operator">:</span><span class="token punctuation">[</span>
+      <span class="token string">&#39;content&#39;</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div&gt;{{content}}&lt;/div&gt;
+     </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token comment">// 然后挂载</span>
+  app<span class="token punctuation">.</span><span class="token function">mount</span><span class="token punctuation">(</span><span class="token string">&quot;#app&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="全局组件" tabindex="-1"><a class="header-anchor" href="#全局组件" aria-hidden="true">#</a> 全局组件</h3><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code> <span class="token comment">// 全局组件，使用不使用都会存在，使用效率不高，但是使用方便，在哪都可以使用</span>
+ <span class="token comment">// 注册组件</span>
+ app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;todo-item&#39;</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+    <span class="token comment">// data() {</span>
+    <span class="token comment">//   return {</span>
+    <span class="token comment">//       item:&#39;123&#39;   </span>
+    <span class="token comment">//   }</span>
+    <span class="token comment">// },</span>
+    <span class="token literal-property property">props</span><span class="token operator">:</span><span class="token punctuation">[</span>
+      <span class="token string">&#39;content&#39;</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div&gt;{{content}}&lt;/div&gt;
+     </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 定义局部组件</span>
+<span class="token comment">// 局部组件 名称建议 大写 ，全局组件 为 &#39;todo-item&#39; 中间有横线</span>
+<span class="token comment">// 使用组件时，可以使用 中间 带横线的 ，会自动处理驼峰变量</span>
+<span class="token keyword">const</span> counter <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">val</span><span class="token operator">:</span> <span class="token number">0</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+      &lt;div @click=&#39;val += 1&#39;&gt;
+        {{val}}
+      &lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+   <span class="token comment">// 自定义组件名称</span>
+    <span class="token literal-property property">components</span><span class="token operator">:</span><span class="token punctuation">{</span><span class="token literal-property property">hello</span><span class="token operator">:</span>counter<span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// 如果组件名称和使用名称一样，可以简写 ES6 语法</span>
+    <span class="token comment">// components:{counter:counter},</span>
+    <span class="token comment">// components:{counter},</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">obj</span><span class="token operator">:</span> <span class="token string">&#39;123&#39;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+          &lt;hello/&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+ 
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="组件间传值" tabindex="-1"><a class="header-anchor" href="#组件间传值" aria-hidden="true">#</a> 组件间传值</h3><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code><span class="token comment">// 单向数据流 ： 父组件向子组件传值，都是只读，子组件不能修改</span>
+<span class="token comment">// 静态传值 content 只能传递 字符类型</span>
+<span class="token comment">// 动态传值 可以传递 数值</span>
+
+ <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+          &lt;hello-world content=123&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;hello-world&#39;</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+
+    <span class="token literal-property property">props</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token string">&#39;content&#39;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div&gt;{{content}}&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// 动态传值</span>
+  <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">content</span><span class="token operator">:</span> <span class="token number">123</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+          &lt;hello-world :content=123&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;hello-world&#39;</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+
+    <span class="token literal-property property">props</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token string">&#39;content&#39;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div&gt;{{typeof content}}&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+ <span class="token comment">// 类型校验  // String number Boolean Array Object Function </span>
+ <span class="token comment">// 不会报错，但是有警告</span>
+<span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">content</span><span class="token operator">:</span> <span class="token number">123</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+          &lt;hello-world :content=123 /&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;hello-world&#39;</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+    <span class="token literal-property property">props</span><span class="token operator">:</span><span class="token punctuation">{</span>
+      <span class="token literal-property property">content</span><span class="token operator">:</span> String
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div&gt;{{typeof content}}&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// requried 使用</span>
+   app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;hello-world&#39;</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+    <span class="token literal-property property">props</span><span class="token operator">:</span><span class="token punctuation">{</span>
+      <span class="token literal-property property">content</span><span class="token operator">:</span><span class="token punctuation">{</span>
+        <span class="token literal-property property">type</span> <span class="token operator">:</span> Number<span class="token punctuation">,</span>
+        <span class="token literal-property property">required</span><span class="token operator">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div&gt;{{typeof content}}&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// 默认值使用</span>
+  <span class="token comment">// default 可以是个函数</span>
+ app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;hello-world&#39;</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+    <span class="token literal-property property">props</span><span class="token operator">:</span><span class="token punctuation">{</span>
+      <span class="token literal-property property">content</span><span class="token operator">:</span><span class="token punctuation">{</span>
+        <span class="token literal-property property">type</span> <span class="token operator">:</span> Number<span class="token punctuation">,</span>
+        <span class="token keyword">default</span><span class="token operator">:</span> <span class="token number">9999</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div&gt;{{typeof content}}&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token comment">// 数据校验</span>
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;hello-world&#39;</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+    <span class="token literal-property property">props</span><span class="token operator">:</span><span class="token punctuation">{</span>
+      <span class="token literal-property property">content</span><span class="token operator">:</span><span class="token punctuation">{</span>
+        <span class="token literal-property property">type</span> <span class="token operator">:</span> Number<span class="token punctuation">,</span>
+         <span class="token function-variable function">validator</span><span class="token operator">:</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> val <span class="token operator">&lt;</span> <span class="token number">1000</span>
+         <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div&gt;{{typeof content}}&lt;/div&gt;
+</span><span class="token template-punctuation string">`</span></span>
+
+<span class="token comment">// 传递对象</span>
+
+ <span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">obj</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">&#39;lojzes&#39;</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">30</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// 等价于 :id=obj.id :name=obj.name :age=obj.age </span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+          &lt;hello-world v-bind=&quot;obj&quot;/&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// String number Boolean Function </span>
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;hello-world&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">props</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&#39;id&#39;</span><span class="token punctuation">,</span><span class="token string">&#39;name&#39;</span><span class="token punctuation">,</span><span class="token string">&#39;age&#39;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div&gt;{{id}}&lt;/div&gt;
+       &lt;div&gt;{{name}}&lt;/div&gt;
+       &lt;div&gt;{{age}}&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="non-props" tabindex="-1"><a class="header-anchor" href="#non-props" aria-hidden="true">#</a> Non Props</h3><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code><span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+          <span class="token literal-property property">obj</span> <span class="token operator">:</span> <span class="token number">123</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// 等价于 :id=obj.id :name=obj.name :age=obj.age </span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+          &lt;hello-world  msg=&quot;obj&quot;/&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// String number Boolean Function </span>
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;hello-world&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token comment">// props: [&#39;id&#39;,&#39;name&#39;,&#39;age&#39;],</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div&gt;hello&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>当父组件向子组件通过属性传值时，子组件没有接收时，请看图</p><p><img src="/assets/component-1-87c8d292.png" alt="" loading="lazy"></p><p>使用 <code>inheritAttrs:false</code> 解决</p><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code><span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+          <span class="token literal-property property">obj</span> <span class="token operator">:</span> <span class="token number">123</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// 等价于 :id=obj.id :name=obj.name :age=obj.age </span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+          &lt;hello-world  msg=&quot;obj&quot;/&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// String number Boolean Function </span>
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;hello-world&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token comment">// props: [&#39;id&#39;,&#39;name&#39;,&#39;age&#39;],</span>
+    <span class="token literal-property property">inheritAttrs</span><span class="token operator">:</span><span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div&gt;hello&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 应用场景： 父组件 class  style 可以传递给子组件</span>
+
+<span class="token comment">// 使用 v-bind=&quot;$attrs&quot; 接收全部父组件传递来的属性</span>
+
+<span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+          <span class="token literal-property property">obj</span> <span class="token operator">:</span> <span class="token number">123</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// 等价于 :id=obj.id :name=obj.name :age=obj.age </span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+          &lt;hello-world  msg=&quot;obj&quot; msg2=&quot;obj&quot;/&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// String number Boolean Function </span>
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;hello-world&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token comment">// props: [&#39;id&#39;,&#39;name&#39;,&#39;age&#39;],</span>
+    <span class="token comment">//inheritAttrs:false,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div v-bind=&quot;$attrs&quot;&gt;hello&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>看图：</p><p><img src="/assets/component-2-bd2d705d.png" alt="" loading="lazy"></p><p>子组件指定父组件属性名称 接收</p><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code> <span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+          <span class="token literal-property property">obj</span> <span class="token operator">:</span> <span class="token number">123</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// 等价于 :id=obj.id :name=obj.name :age=obj.age </span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+          &lt;hello-world  msg=&quot;obj&quot; msg2=&quot;obj&quot;/&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// String number Boolean Function </span>
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;hello-world&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token comment">// props: [&#39;id&#39;,&#39;name&#39;,&#39;age&#39;],</span>
+    <span class="token comment">//inheritAttrs:false,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div v-bind:m=&quot;$attrs.msg&quot;&gt;hello&lt;/div&gt;
+       &lt;div v-bind:m2=&quot;$attrs.msg2&quot;&gt;hello&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="子组件通过-emit-事件-告诉父组件修改行为" tabindex="-1"><a class="header-anchor" href="#子组件通过-emit-事件-告诉父组件修改行为" aria-hidden="true">#</a> 子组件通过 $emit 事件， 告诉父组件修改行为</h3><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code> <span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+          <span class="token literal-property property">obj</span> <span class="token operator">:</span> <span class="token number">1</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">methods</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token function">handleAddOne</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>obj <span class="token operator">+=</span> <span class="token number">1</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+          &lt;hello-world  :msg=&quot;obj&quot; @add-one=&quot;handleAddOne&quot;/&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// String number Boolean Function </span>
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;hello-world&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+     <span class="token literal-property property">props</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&#39;msg&#39;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+     <span class="token literal-property property">methods</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+       <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">&#39;addOne&#39;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+     <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div @click=&quot;handleClick&quot;&gt;{{msg}}&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// 传参</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">&#39;addOne&#39;</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 使用 emits 当注释，表示当前子组件要向外发送的事件</span>
+ <span class="token comment">// String number Boolean Function </span>
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;hello-world&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+     <span class="token literal-property property">props</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&#39;msg&#39;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+     <span class="token literal-property property">emits</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token string">&#39;addOne&#39;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+     <span class="token literal-property property">methods</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+       <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">&#39;addOne&#39;</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+     <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div @click=&quot;handleClick&quot;&gt;{{msg}}&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 使用 emits 在发送事件之前做相关校验</span>
+ app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;hello-world&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">props</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&#39;msg&#39;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">emits</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token function-variable function">addOne</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">p</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>p <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token boolean">true</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">methods</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">&#39;addOne&#39;</span><span class="token punctuation">,</span> <span class="token number">101</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div @click=&quot;handleClick&quot;&gt;{{msg}}&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// 使用 `v-model` 来实现父子组件间 数据双向绑定</span>
+  <span class="token comment">// 注意： 子组件中的 modelValue ， update:modelValue 是固定写法</span>
+  <span class="token comment">// v-model 可以写多个</span>
+  <span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">obj</span><span class="token operator">:</span> <span class="token number">1</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+          &lt;hello-world  v-model=&quot;obj&quot;/&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// String number Boolean Function </span>
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;hello-world&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">props</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&#39;modelValue&#39;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">methods</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">&#39;update:modelValue&#39;</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>modelValue <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div @click=&quot;handleClick&quot;&gt;{{modelValue}}&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 自定义 数据绑定属性名称</span>
+<span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">obj</span><span class="token operator">:</span> <span class="token number">1</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+          &lt;hello-world  v-model:app=&quot;obj&quot;/&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// String number Boolean Function </span>
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;hello-world&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">props</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&#39;app&#39;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">methods</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">&#39;update:app&#39;</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>app <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div @click=&quot;handleClick&quot;&gt;{{app}}&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="插槽-slot" tabindex="-1"><a class="header-anchor" href="#插槽-slot" aria-hidden="true">#</a> 插槽 slot</h2><p>slot 可以传递 string dom 标签 组件</p><p>注意： slot 不能绑定事件 slot 数据作用域 父组件的数据变量引用的是父组件中的变量 子组件的数据变量引用的是子组件中的变量</p><p>default 是slot 的默认值</p><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code> <span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+          &lt;hello-world&gt;
+             &lt;div&gt;123&lt;/div&gt;
+          &lt;/hello-world&gt;
+
+          &lt;hello-world&gt;
+             &lt;div&gt;456&lt;/div&gt;
+          &lt;/hello-world&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// String number Boolean Function </span>
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;hello-world&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+       &lt;div&gt;
+         &lt;slot&gt;default&lt;/slot&gt;
+        &lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// 具名插槽</span>
+  <span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+      &lt;layout&gt;
+         &lt;template v-slot:header&gt;
+            &lt;div&gt;header&lt;/div&gt;
+          &lt;/template&gt;
+
+        &lt;template v-slot:footer&gt;
+            &lt;div&gt;footer&lt;/div&gt;
+        &lt;/template&gt;
+      &lt;/layout&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// String number Boolean Function </span>
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;layout&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+      &lt;div&gt;
+        &lt;slot name=&quot;header&quot;&gt;&lt;/slot&gt;
+         &lt;div&gt;content&lt;/div&gt;
+         &lt;slot name=&quot;footer&quot;&gt;&lt;/slot&gt;
+      &lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// 具名插槽 简写</span>
+  <span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+      &lt;layout&gt;
+         &lt;template #header&gt;
+            &lt;div&gt;header&lt;/div&gt;
+          &lt;/template&gt;
+
+        &lt;template #footer&gt;
+            &lt;div&gt;footer&lt;/div&gt;
+        &lt;/template&gt;
+      &lt;/layout&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// String number Boolean Function </span>
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;layout&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+      &lt;div&gt;
+        &lt;slot name=&quot;header&quot;&gt;&lt;/slot&gt;
+         &lt;div&gt;content&lt;/div&gt;
+         &lt;slot name=&quot;footer&quot;&gt;&lt;/slot&gt;
+      &lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// 插槽作用域</span>
+  <span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+           &lt;list v-slot=&quot;props&quot;&gt;
+                &lt;div&gt;{{props.item}}&lt;/div&gt;
+           &lt;/list&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// String number Boolean Function </span>
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;list&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">list</span> <span class="token operator">:</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+      &lt;div&gt;
+         &lt;slot v-for=&quot;item in list&quot; :item=&quot;item&quot;&gt;&lt;/slot&gt;
+      &lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// ES6结构写法</span>
+
+ <span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+           &lt;list v-slot=&quot;{item}&quot;&gt;
+                &lt;div&gt;{{item}}&lt;/div&gt;
+           &lt;/list&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// String number Boolean Function </span>
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;list&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">list</span> <span class="token operator">:</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+      &lt;div&gt;
+         &lt;slot v-for=&quot;item in list&quot; :item=&quot;item&quot;&gt;&lt;/slot&gt;
+      &lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="动态组件" tabindex="-1"><a class="header-anchor" href="#动态组件" aria-hidden="true">#</a> 动态组件</h2><p>// 普通转换</p><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code>
+<span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">item</span> <span class="token operator">:</span> <span class="token string">&#39;input-item&#39;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">methods</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>item <span class="token operator">===</span> <span class="token string">&#39;input-item&#39;</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+              <span class="token keyword">this</span><span class="token punctuation">.</span>item <span class="token operator">=</span> <span class="token string">&#39;div-item&#39;</span>
+          <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>item <span class="token operator">=</span> <span class="token string">&#39;input-item&#39;</span>
+          <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+        &lt;input-item v-show=&quot;item === &#39;input-item&#39;&quot;/&gt;
+        &lt;div-item v-show=&quot;item === &#39;div-item&#39;&quot;/&gt;
+        &lt;button @click=&quot;handleClick&quot;&gt; 切换 &lt;/button&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;input-item&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+        &lt;input/&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;div-item&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+        &lt;div&gt;div&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>动态组件</p><p>动态组件 通常与 <code>keep-alive</code> 配合使用，用于保存组件的数据</p><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code> <span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">item</span> <span class="token operator">:</span> <span class="token string">&#39;input-item&#39;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">methods</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>item <span class="token operator">===</span> <span class="token string">&#39;input-item&#39;</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+              <span class="token keyword">this</span><span class="token punctuation">.</span>item <span class="token operator">=</span> <span class="token string">&#39;div-item&#39;</span>
+          <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>item <span class="token operator">=</span> <span class="token string">&#39;input-item&#39;</span>
+          <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+        &lt;keep-alive&gt;
+          &lt;component :is=&quot;item&quot;/&gt;
+        &lt;/keep-alive&gt;
+        &lt;button @click=&quot;handleClick&quot;&gt; 切换 &lt;/button&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;input-item&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+        &lt;input/&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;div-item&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+        &lt;div&gt;div&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="异步组件" tabindex="-1"><a class="header-anchor" href="#异步组件" aria-hidden="true">#</a> 异步组件</h2><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code> <span class="token keyword">var</span> app <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">createApp</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">item</span> <span class="token operator">:</span> <span class="token string">&#39;input-item&#39;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+           &lt;div-item/&gt;
+           &lt;async-item/&gt;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;div-item&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+        &lt;div&gt;div&lt;/div&gt;
+    </span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&#39;async-item&#39;</span><span class="token punctuation">,</span>Vue<span class="token punctuation">.</span><span class="token function">defineAsyncComponent</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span>reject</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+         <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+             <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+              <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+                  &lt;div&gt;异步组件加载&lt;/div&gt;
+              </span><span class="token template-punctuation string">`</span></span>
+             <span class="token punctuation">}</span><span class="token punctuation">)</span>
+         <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token number">4000</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="组件深入" tabindex="-1"><a class="header-anchor" href="#组件深入" aria-hidden="true">#</a> 组件深入</h2><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code><span class="token comment">//  最外层的是 root 组件</span>
+
+  <span class="token comment">// 然后挂载</span>
+ <span class="token keyword">var</span> vm <span class="token operator">=</span> app<span class="token punctuation">.</span><span class="token function">mount</span><span class="token punctuation">(</span><span class="token string">&quot;#app&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">//  使用vm 操作组件的数据</span>
+ vm<span class="token punctuation">.</span>$data<span class="token punctuation">.</span>list <span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">&#39;1&#39;</span><span class="token punctuation">,</span><span class="token string">&#39;2&#39;</span><span class="token punctuation">,</span><span class="token string">&#39;3&#39;</span><span class="token punctuation">]</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div><!----><footer class="page-meta"><!----><div class="meta-item git-info"><!----><!----></div></footer><nav class="page-nav"><a href="/study/web/vue/vue%E5%9F%BA%E7%A1%80.html" class="nav-link prev" aria-label="vue基础"><div class="hint"><span class="arrow start"></span>上一页</div><div class="link"><span class="font-icon icon iconfont icon-discover" style=""></span>vue基础</div></a><a href="/study/web/vue/vue%E9%AB%98%E7%BA%A7.html" class="nav-link next" aria-label="vue高级"><div class="hint">下一页<span class="arrow end"></span></div><div class="link">vue高级<span class="font-icon icon iconfont icon-discover" style=""></span></div></a></nav><!----><!----><!--]--></main><!--]--><footer class="footer-wrapper"><div class="footer"><a href="#">哈哈ICP备00000000号-1</a></div><div class="copyright">Copyright © 2023 lojzes</div></footer></div><!--]--><!--]--><!----><!--]--></div>
+    <script type="module" src="/assets/app-82975e45.js" defer></script>
+  </body>
+</html>

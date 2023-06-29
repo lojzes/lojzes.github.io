@@ -1,0 +1,1 @@
+import{_ as e,X as t,Y as o,Z as s}from"./framework-b6ea3384.js";const _={},c=s("p",null,"----------------------其他",-1),n=[c];function r(a,l){return t(),o("div",null,n)}const f=e(_,[["render",r],["__file","others.html.vue"]]);export{f as default};
