@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-beta.61" />
+    <meta name="theme" content="VuePress Theme Hope" />
+    <meta property="og:url" content="https://vuepress-theme-hope-docs-demo.netlify.app/study/web/js/es6.html"><meta property="og:site_name" content="JavaNative"><meta property="og:title" content="es6"><meta property="og:description" content="参考 源码 let 和 const // var 是变量提升：自动向外定义 // console.log(a); // var a = 10; // let 不能重复定义 // let.1 提示在变量实例化之前不能使用 // console.log(b); // let b = 10; // let.2 块级变量 // if(1===1){ // let c = 0; // } // // 报 c is not defined // console.log(c); // 经常用在for 循环上 // for(let i = 0;i &lt; 10 ; i ++){ // console.log(i); // } // let.3 不会污染全局变量 // let RegExp = 0 // console.log(RegExp); // console.log(window.RegExp); // const 拥有let 的特性，并且经常用于定义变量，一旦定义，就不能修改 // const person = { // name:'lojzes' // } // person.name = 'lyy' // console.log(person.name ); // 但是不能 // Uncaught TypeError: Assignment to constant variable. // person = { // age:20 // } // 可以这样 // person.age = 30 // console.log(person.age); // console.log(person); // 建议，一般使用 const,如果涉及修改变量，则使用let"><meta property="og:type" content="article"><meta property="og:locale" content="zh-CN"><meta property="article:author" content="lojzes"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"es6","image":[""],"dateModified":null,"author":[{"@type":"Person","name":"lojzes","url":""}]}</script><title>es6 | JavaNative</title><meta name="description" content="参考 源码 let 和 const // var 是变量提升：自动向外定义 // console.log(a); // var a = 10; // let 不能重复定义 // let.1 提示在变量实例化之前不能使用 // console.log(b); // let b = 10; // let.2 块级变量 // if(1===1){ // let c = 0; // } // // 报 c is not defined // console.log(c); // 经常用在for 循环上 // for(let i = 0;i &lt; 10 ; i ++){ // console.log(i); // } // let.3 不会污染全局变量 // let RegExp = 0 // console.log(RegExp); // console.log(window.RegExp); // const 拥有let 的特性，并且经常用于定义变量，一旦定义，就不能修改 // const person = { // name:'lojzes' // } // person.name = 'lyy' // console.log(person.name ); // 但是不能 // Uncaught TypeError: Assignment to constant variable. // person = { // age:20 // } // 可以这样 // person.age = 30 // console.log(person.age); // console.log(person); // 建议，一般使用 const,如果涉及修改变量，则使用let">
+    <style>
+      :root {
+        --bg-color: #fff;
+      }
+
+      html[data-theme="dark"] {
+        --bg-color: #1d1e1f;
+      }
+
+      html,
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <link rel="preload" href="/assets/style-14c79648.css" as="style"><link rel="stylesheet" href="/assets/style-14c79648.css">
+    <link rel="modulepreload" href="/assets/app-628baf5e.js"><link rel="modulepreload" href="/assets/framework-0b23a550.js"><link rel="modulepreload" href="/assets/es6.html-c227e537.js"><link rel="modulepreload" href="/assets/es6.html-13268741.js">
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="skip-link sr-only">跳至主要內容</a><!--]--><!--[--><div class="theme-container has-toc"><!--[--><header class="navbar" id="navbar"><div class="navbar-start"><button type="button" class="toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><a href="/" class="brand"><img class="logo" src="/logo.svg" alt="JavaNative"><!----><span class="site-name hide-in-pad">JavaNative</span></a><!--[--><!----><!--]--></div><div class="navbar-center"><!--[--><!----><!--]--><nav class="nav-links"><div class="nav-item hide-in-mobile"><a href="/" class="nav-link" aria-label="首页"><span class="font-icon icon iconfont icon-home" style=""></span>首页<!----></a></div><div class="nav-item hide-in-mobile"><a href="/interview/" class="nav-link" aria-label="面试资料"><span class="font-icon icon iconfont icon-discover" style=""></span>面试资料<!----></a></div><div class="nav-item hide-in-mobile"><a href="/study/" class="nav-link active" aria-label="学习笔记"><span class="font-icon icon iconfont icon-discover" style=""></span>学习笔记<!----></a></div><div class="nav-item hide-in-mobile"><a href="/work/" class="nav-link" aria-label="工作笔记"><span class="font-icon icon iconfont icon-discover" style=""></span>工作笔记<!----></a></div></nav><!--[--><!----><!--]--></div><div class="navbar-end"><!--[--><!----><!--]--><!----><!----><div class="nav-item hide-in-mobile"><button type="button" class="outlook-button" tabindex="-1" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" class="icon outlook-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="outlook icon"><path d="M224 800c0 9.6 3.2 44.8 6.4 54.4 6.4 48-48 76.8-48 76.8s80 41.6 147.2 0 134.4-134.4 38.4-195.2c-22.4-12.8-41.6-19.2-57.6-19.2C259.2 716.8 227.2 761.6 224 800zM560 675.2l-32 51.2c-51.2 51.2-83.2 32-83.2 32 25.6 67.2 0 112-12.8 128 25.6 6.4 51.2 9.6 80 9.6 54.4 0 102.4-9.6 150.4-32l0 0c3.2 0 3.2-3.2 3.2-3.2 22.4-16 12.8-35.2 6.4-44.8-9.6-12.8-12.8-25.6-12.8-41.6 0-54.4 60.8-99.2 137.6-99.2 6.4 0 12.8 0 22.4 0 12.8 0 38.4 9.6 48-25.6 0-3.2 0-3.2 3.2-6.4 0-3.2 3.2-6.4 3.2-6.4 6.4-16 6.4-16 6.4-19.2 9.6-35.2 16-73.6 16-115.2 0-105.6-41.6-198.4-108.8-268.8C704 396.8 560 675.2 560 675.2zM224 419.2c0-28.8 22.4-51.2 51.2-51.2 28.8 0 51.2 22.4 51.2 51.2 0 28.8-22.4 51.2-51.2 51.2C246.4 470.4 224 448 224 419.2zM320 284.8c0-22.4 19.2-41.6 41.6-41.6 22.4 0 41.6 19.2 41.6 41.6 0 22.4-19.2 41.6-41.6 41.6C339.2 326.4 320 307.2 320 284.8zM457.6 208c0-12.8 12.8-25.6 25.6-25.6 12.8 0 25.6 12.8 25.6 25.6 0 12.8-12.8 25.6-25.6 25.6C470.4 233.6 457.6 220.8 457.6 208zM128 505.6C128 592 153.6 672 201.6 736c28.8-60.8 112-60.8 124.8-60.8-16-51.2 16-99.2 16-99.2l316.8-422.4c-48-19.2-99.2-32-150.4-32C297.6 118.4 128 291.2 128 505.6zM764.8 86.4c-22.4 19.2-390.4 518.4-390.4 518.4-22.4 28.8-12.8 76.8 22.4 99.2l9.6 6.4c35.2 22.4 80 12.8 99.2-25.6 0 0 6.4-12.8 9.6-19.2 54.4-105.6 275.2-524.8 288-553.6 6.4-19.2-3.2-32-19.2-32C777.6 76.8 771.2 80 764.8 86.4z"></path></svg><div class="outlook-dropdown"><!----></div></button></div><form class="search-box" role="search"><input type="search" placeholder="搜索" autocomplete="off" spellcheck="false" value><!----></form><!--[--><!----><!--]--><button type="button" class="toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span class="button-container"><span class="button-top"></span><span class="button-middle"></span><span class="button-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside class="sidebar" id="sidebar"><!--[--><!----><!--]--><ul class="sidebar-links"><li><section class="sidebar-group"><p class="sidebar-heading"><span class="font-icon icon iconfont icon-java" style=""></span><span class="title">Java</span><!----></p><ul class="sidebar-links"><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-jvm" style=""></span><span class="title">jvm</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-线程池" style=""></span><span class="title">线程池</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-consistenthash" style=""></span><span class="title">一致性hash</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-codeformat" style=""></span><span class="title">代码格式化</span><span class="arrow end"></span></button><!----></section></li></ul></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-arthas" style=""></span><span class="title">arthas</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-designpattern" style=""></span><span class="title">designpattern</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-函数式编程" style=""></span><span class="title">函数式编程</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-spring" style=""></span><span class="title">spring</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-springsecurity" style=""></span><span class="title">springsecurity</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-springboot" style=""></span><span class="title">springboot</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-springcloud" style=""></span><span class="title">springcloud</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-springmvc" style=""></span><span class="title">springmvc</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-dubbo" style=""></span><span class="title">dubbo</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-tomcat" style=""></span><span class="title">tomcat</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-nginx" style=""></span><span class="title">nginx</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-elasticsearch" style=""></span><span class="title">elasticsearch</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-mysql" style=""></span><span class="title">mysql</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-canal" style=""></span><span class="title">canal</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-redis" style=""></span><span class="title">redis</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-canal" style=""></span><span class="title">canal</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-mongodb" style=""></span><span class="title">mongodb</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-bigdata" style=""></span><span class="title">大数据</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-test" style=""></span><span class="title">test</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><p class="sidebar-heading active"><span class="font-icon icon iconfont icon-web" style=""></span><span class="title">前端学习</span><!----></p><ul class="sidebar-links"><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-css" style=""></span><span class="title">css</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-html" style=""></span><span class="title">html</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable active" type="button"><span class="font-icon icon iconfont icon-js" style=""></span><span class="title">js</span><span class="arrow down"></span></button><ul class="sidebar-links"><li><!--[--><a href="/study/web/js/js.html" class="nav-link sidebar-link sidebar-page" aria-label="js学习笔记"><span class="font-icon icon iconfont icon-discover" style=""></span>js学习笔记<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a href="/study/web/js/js-bom.html" class="nav-link sidebar-link sidebar-page" aria-label="js操作bom"><span class="font-icon icon iconfont icon-discover" style=""></span>js操作bom<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a aria-current="page" href="/study/web/js/es6.html" class="router-link-active router-link-exact-active nav-link active sidebar-link sidebar-page active" aria-label="es6"><span class="font-icon icon iconfont icon-discover" style=""></span>es6<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/js/es6.html#let-和-const" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="let 和 const"><!---->let 和 const<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/js/es6.html#模板字符串" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="模板字符串"><!---->模板字符串<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/js/es6.html#函数" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="函数"><!---->函数<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/js/es6.html#解构" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="解构"><!---->解构<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/js/es6.html#定义对象简写" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="定义对象简写"><!---->定义对象简写<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/js/es6.html#扩展对象" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="扩展对象"><!---->扩展对象<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/js/es6.html#对象方法" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="对象方法"><!---->对象方法<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/js/es6.html#symbol-函数" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="Symbol 函数"><!---->Symbol 函数<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/js/es6.html#数据类型" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="数据类型"><!---->数据类型<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/js/es6.html#set" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="set"><!---->set<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/js/es6.html#map" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="map"><!---->map<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/js/es6.html#数组" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="数组"><!---->数组<!----></a><ul class="sidebar-sub-headers"></ul></li></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/js/es6.html#promise" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="Promise"><!---->Promise<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/js/es6.html#async" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="async"><!---->async<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/js/es6.html#class" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="class"><!---->class<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/js/es6.html#继承" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="继承"><!---->继承<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/study/web/js/es6.html#模块化" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="模块化"><!---->模块化<!----></a><ul class="sidebar-sub-headers"></ul></li></ul></li></ul><!--]--></li></ul></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-jquery" style=""></span><span class="title">jQuery</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-vue" style=""></span><span class="title">vue</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-element" style=""></span><span class="title">element-ui</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-nvm-npx" style=""></span><span class="title">nvm-npx</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-webpack" style=""></span><span class="title">webpack</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-bootstrap" style=""></span><span class="title">bootstrap</span><span class="arrow end"></span></button><!----></section></li></ul></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="title">跨域</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="title">git笔记</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="title">c语言</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="title">数据结构</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="title">go语言</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="title">linux笔记</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="title">正则表达式</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-book" style=""></span><span class="title">字符集</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><button class="sidebar-heading clickable" type="button"><span class="font-icon icon iconfont icon-ps" style=""></span><span class="title">ps</span><span class="arrow end"></span></button><!----></section></li><li><section class="sidebar-group"><p class="sidebar-heading"><span class="font-icon icon iconfont icon-gbf" style=""></span><span class="title">高并发</span><!----></p><ul class="sidebar-links"><li><!--[--><a href="/study/gbf/gbf.html" class="nav-link sidebar-link sidebar-page" aria-label="高并发"><span class="font-icon icon iconfont icon-discover" style=""></span>高并发<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li></ul></section></li></ul><!--[--><!----><!--]--></aside><!--[--><main class="page" id="main-content"><!--[--><!----><nav class="breadcrumb disable"></nav><div class="page-title"><h1><span class="font-icon icon iconfont icon-discover" style=""></span>es6</h1><div class="page-info"><span class="page-author-info" aria-label="作者🖊" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon author-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="author icon"><path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z"></path></svg><span><span class="page-author-item">lojzes</span></span><span property="author" content="lojzes"></span></span><span class="page-category-info" aria-label="分类🌈" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon category-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="category icon"><path d="M148.41 106.992h282.176c22.263 0 40.31 18.048 40.31 40.31V429.48c0 22.263-18.047 40.31-40.31 40.31H148.41c-22.263 0-40.311-18.047-40.311-40.31V147.302c0-22.263 18.048-40.31 40.311-40.31zM147.556 553.478H429.73c22.263 0 40.311 18.048 40.311 40.31v282.176c0 22.263-18.048 40.312-40.31 40.312H147.555c-22.263 0-40.311-18.049-40.311-40.312V593.79c0-22.263 18.048-40.311 40.31-40.311zM593.927 106.992h282.176c22.263 0 40.31 18.048 40.31 40.31V429.48c0 22.263-18.047 40.31-40.31 40.31H593.927c-22.263 0-40.311-18.047-40.311-40.31V147.302c0-22.263 18.048-40.31 40.31-40.31zM730.22 920.502H623.926c-40.925 0-74.22-33.388-74.22-74.425V623.992c0-41.038 33.387-74.424 74.425-74.424h222.085c41.038 0 74.424 33.226 74.424 74.067v114.233c0 10.244-8.304 18.548-18.547 18.548s-18.548-8.304-18.548-18.548V623.635c0-20.388-16.746-36.974-37.33-36.974H624.13c-20.585 0-37.331 16.747-37.331 37.33v222.086c0 20.585 16.654 37.331 37.126 37.331H730.22c10.243 0 18.547 8.304 18.547 18.547 0 10.244-8.304 18.547-18.547 18.547z"></path></svg><span class="page-category-item category6 clickable" role="navigation">学习笔记</span><meta property="articleSection" content="学习笔记"></span><!----><!----><!----><!----><span class="page-reading-time-info" aria-label="阅读时间⌛" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 6 分钟</span><meta property="timeRequired" content="PT6M"></span><span class="page-word-info" aria-label="字数🔠" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon word-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="word icon"><path d="M518.217 432.64V73.143A73.143 73.143 0 01603.43 1.097a512 512 0 01419.474 419.474 73.143 73.143 0 01-72.046 85.212H591.36a73.143 73.143 0 01-73.143-73.143z"></path><path d="M493.714 566.857h340.297a73.143 73.143 0 0173.143 85.577A457.143 457.143 0 11371.566 117.76a73.143 73.143 0 0185.577 73.143v339.383a36.571 36.571 0 0036.571 36.571z"></path></svg><span>约 1889 字</span><meta property="wordCount" content="1889"></span></div><hr></div><div class="toc-place-holder"><aside id="toc"><!--[--><!----><!--]--><div class="toc-header">此页内容<button type="button" class="print-button" title="打印"><svg xmlns="http://www.w3.org/2000/svg" class="icon print-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="print icon"><path d="M819.2 364.8h-44.8V128c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v236.8h-44.8C145.067 364.8 96 413.867 96 473.6v192c0 59.733 49.067 108.8 108.8 108.8h44.8V896c0 17.067 14.933 32 32 32h460.8c17.067 0 32-14.933 32-32V774.4h44.8c59.733 0 108.8-49.067 108.8-108.8v-192c0-59.733-49.067-108.8-108.8-108.8zM313.6 160h396.8v204.8H313.6V160zm396.8 704H313.6V620.8h396.8V864zM864 665.6c0 25.6-19.2 44.8-44.8 44.8h-44.8V588.8c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v121.6h-44.8c-25.6 0-44.8-19.2-44.8-44.8v-192c0-25.6 19.2-44.8 44.8-44.8h614.4c25.6 0 44.8 19.2 44.8 44.8v192z"></path></svg></button></div><div class="toc-wrapper"><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/js/es6.html#let-和-const" class="router-link-active router-link-exact-active toc-link level2">let 和 const</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/js/es6.html#模板字符串" class="router-link-active router-link-exact-active toc-link level2">模板字符串</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/js/es6.html#函数" class="router-link-active router-link-exact-active toc-link level2">函数</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/js/es6.html#解构" class="router-link-active router-link-exact-active toc-link level2">解构</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/js/es6.html#定义对象简写" class="router-link-active router-link-exact-active toc-link level2">定义对象简写</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/js/es6.html#扩展对象" class="router-link-active router-link-exact-active toc-link level2">扩展对象</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/js/es6.html#对象方法" class="router-link-active router-link-exact-active toc-link level2">对象方法</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/js/es6.html#symbol-函数" class="router-link-active router-link-exact-active toc-link level2">Symbol 函数</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/js/es6.html#数据类型" class="router-link-active router-link-exact-active toc-link level2">数据类型</a></li><li><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/js/es6.html#set" class="router-link-active router-link-exact-active toc-link level3">set</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/js/es6.html#map" class="router-link-active router-link-exact-active toc-link level3">map</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/js/es6.html#数组" class="router-link-active router-link-exact-active toc-link level3">数组</a></li><!----><!--]--></ul></li><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/js/es6.html#promise" class="router-link-active router-link-exact-active toc-link level2">Promise</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/js/es6.html#async" class="router-link-active router-link-exact-active toc-link level2">async</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/js/es6.html#class" class="router-link-active router-link-exact-active toc-link level2">class</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/js/es6.html#继承" class="router-link-active router-link-exact-active toc-link level2">继承</a></li><li><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/study/web/js/es6.html#模块化" class="router-link-active router-link-exact-active toc-link level3">模块化</a></li><!----><!--]--></ul></li><!--]--></ul></div><!--[--><!----><!--]--></aside></div><!----><div class="theme-hope-content"><div class="hint-container tip"><p class="hint-container-title">参考</p><p><a href="https://github.com/lojzes/web-study/tree/main/js/es6" target="_blank" rel="noopener noreferrer"> 源码 <span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a></p></div><h2 id="let-和-const" tabindex="-1"><a class="header-anchor" href="#let-和-const" aria-hidden="true">#</a> let 和 const</h2><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code><span class="token comment">//   var 是变量提升：自动向外定义</span>
+ <span class="token comment">//  console.log(a);</span>
+ <span class="token comment">//  var a = 10;</span>
+
+ <span class="token comment">// let 不能重复定义</span>
+
+ <span class="token comment">// let.1 提示在变量实例化之前不能使用</span>
+ <span class="token comment">// console.log(b);</span>
+ <span class="token comment">// let b = 10;</span>
+
+ <span class="token comment">// let.2 块级变量</span>
+
+ <span class="token comment">// if(1===1){</span>
+ <span class="token comment">// let c = 0;</span>
+ <span class="token comment">// }</span>
+
+ <span class="token comment">// // 报 c is not defined</span>
+ <span class="token comment">// console.log(c);</span>
+
+ <span class="token comment">// 经常用在for 循环上</span>
+
+ <span class="token comment">//  for(let i = 0;i &lt; 10 ; i ++){</span>
+ <span class="token comment">//   console.log(i);</span>
+ <span class="token comment">//  }</span>
+
+ <span class="token comment">// let.3 不会污染全局变量</span>
+ <span class="token comment">//  let RegExp = 0</span>
+ <span class="token comment">//  console.log(RegExp);</span>
+
+ <span class="token comment">//  console.log(window.RegExp);</span>
+
+ <span class="token comment">// const 拥有let 的特性，并且经常用于定义变量，一旦定义，就不能修改</span>
+
+ <span class="token comment">// const person = {</span>
+ <span class="token comment">//   name:&#39;lojzes&#39;</span>
+ <span class="token comment">// }</span>
+
+ <span class="token comment">// person.name = &#39;lyy&#39;</span>
+ <span class="token comment">// console.log(person.name );</span>
+ <span class="token comment">// 但是不能</span>
+
+ <span class="token comment">// Uncaught TypeError: Assignment to constant variable.</span>
+ <span class="token comment">// person = {</span>
+ <span class="token comment">//   age:20</span>
+ <span class="token comment">// }</span>
+
+ <span class="token comment">// 可以这样</span>
+ <span class="token comment">// person.age = 30</span>
+
+ <span class="token comment">// console.log(person.age);</span>
+ <span class="token comment">// console.log(person);</span>
+
+ <span class="token comment">// 建议，一般使用 const,如果涉及修改变量，则使用let</span>
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="模板字符串" tabindex="-1"><a class="header-anchor" href="#模板字符串" aria-hidden="true">#</a> 模板字符串</h2><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code><span class="token comment">// 模板字符串</span>
+
+  <span class="token comment">// let name = &#39;lojzes&#39;</span>
+  <span class="token comment">// let age = 30</span>
+
+  <span class="token comment">// const str = `</span>
+
+  <span class="token comment">// 我是 ${name} , 今年 ${age} 岁</span>
+
+  <span class="token comment">// `</span>
+  <span class="token comment">// console.log(str);</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="函数" tabindex="-1"><a class="header-anchor" href="#函数" aria-hidden="true">#</a> 函数</h2><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code><span class="token comment">//  函数</span>
+  <span class="token comment">//  函数默认值</span>
+
+  <span class="token comment">// function add (a,b){</span>
+  <span class="token comment">//   //  es5 写法</span>
+  <span class="token comment">//   a = a || 10</span>
+  <span class="token comment">//   b = b || 20;</span>
+
+  <span class="token comment">// return a + b</span>
+  <span class="token comment">// }</span>
+
+  <span class="token comment">//  es6 写法</span>
+  <span class="token comment">// function add (a = 10,b = 20){</span>
+  <span class="token comment">//   return </span>
+  <span class="token comment">// }</span>
+
+  <span class="token comment">// console.log(add());</span>
+
+  <span class="token comment">// 剩余参数</span>
+  <span class="token comment">// es5 在函数内有一个参数对象 arguments 对象</span>
+  <span class="token comment">// function add(... args){</span>
+  <span class="token comment">// 循环 1</span>
+  <span class="token comment">// for(let i of args){</span>
+  <span class="token comment">//   console.log(i)</span>
+  <span class="token comment">// }</span>
+  <span class="token comment">// 循环 2</span>
+  <span class="token comment">// args.forEach(element =&gt; {</span>
+  <span class="token comment">//   console.log(element);</span>
+  <span class="token comment">// });</span>
+  <span class="token comment">// }</span>
+
+  <span class="token comment">// add(1,2,3,4)</span>
+
+  <span class="token comment">// ... 也可以表示扩展运算符</span>
+  <span class="token comment">// ... 扩展运算符 是数组内的每项，拆分给函数</span>
+  <span class="token comment">//</span>
+  <span class="token comment">// const max = Math.max(10,100)</span>
+  <span class="token comment">// console.log(max);</span>
+  <span class="token comment">//  const arrr = [10,100]</span>
+  <span class="token comment">//  console.log(Math.max(...arrr));</span>
+
+  <span class="token comment">// 箭头函数</span>
+  <span class="token comment">// function(){} 等价于 （）=&gt;{}</span>
+
+  <span class="token comment">// const add = (a,b) =&gt; {</span>
+  <span class="token comment">//   return a + b</span>
+  <span class="token comment">// }</span>
+
+  <span class="token comment">// console.log(add(10,10));</span>
+
+  <span class="token comment">// const add = a =&gt; {</span>
+  <span class="token comment">//   return a + 10</span>
+  <span class="token comment">// }</span>
+
+  <span class="token comment">// console.log(add(10,10));</span>
+
+  <span class="token comment">// const add = a =&gt; (a + 10)</span>
+  <span class="token comment">// console.log(add(10,10));</span>
+
+  <span class="token comment">// const add = a =&gt; a</span>
+  <span class="token comment">// console.log(add(10));</span>
+
+  <span class="token comment">// 返回对象时，要加上小括号</span>
+  <span class="token comment">// const getObj = ()=&gt;({id:1,name:&#39;lojzes&#39;})</span>
+  <span class="token comment">// console.log(getObj());</span>
+
+  <span class="token comment">// 箭头函数注意事项：</span>
+  <span class="token comment">// 1. 没有作用域链，通常this 向上找，</span>
+  <span class="token comment">// 2. 没有 arguments 对象</span>
+  <span class="token comment">// 3. 不能使用 new ,即 箭头函数不是一个对象，仅是一个表达式，或者是一个语法糖</span>
+
+  <span class="token comment">// const Person = ()=&gt;{}</span>
+  <span class="token comment">// let p = new Person()</span>
+
+  <span class="token comment">// const Person = function(){}</span>
+  <span class="token comment">// let p = new Person()</span>
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="解构" tabindex="-1"><a class="header-anchor" href="#解构" aria-hidden="true">#</a> 解构</h2><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code><span class="token comment">// 解构 针对 数组和对象</span>
+
+  <span class="token comment">// const person = {</span>
+  <span class="token comment">//   name:&#39;lojze&#39;,</span>
+  <span class="token comment">//   address:{</span>
+  <span class="token comment">//     id: 1</span>
+  <span class="token comment">//   },</span>
+  <span class="token comment">//   sex:[],</span>
+  <span class="token comment">//   age:function(){</span>
+
+  <span class="token comment">//   }</span>
+  <span class="token comment">// }</span>
+  <span class="token comment">// const {name,address,sex,age} = person</span>
+  <span class="token comment">// console.log(name,address,sex,age);</span>
+
+  <span class="token comment">// const arr = [1,2,3]</span>
+  <span class="token comment">// const [a,b,c] = arr</span>
+
+  <span class="token comment">// console.log(a,b,c);</span>
+
+
+  <span class="token comment">// 多维数组</span>
+  <span class="token comment">// const arr = [1,[1],3]</span>
+  <span class="token comment">// const [a,[b],c] = arr</span>
+
+  <span class="token comment">// console.log(a,b,c);</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="定义对象简写" tabindex="-1"><a class="header-anchor" href="#定义对象简写" aria-hidden="true">#</a> 定义对象简写</h2><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code><span class="token comment">// 定义对象赋值简写</span>
+
+  <span class="token comment">// const name = &#39;lojzes&#39;</span>
+  <span class="token comment">// const age = 30</span>
+
+  <span class="token comment">// // 当属性名称与变量名称相同时，可以把变量省略</span>
+  <span class="token comment">// const person = {</span>
+  <span class="token comment">//   name,  //  等价于 name:name</span>
+  <span class="token comment">//   age,   //  等价于 age:age</span>
+  <span class="token comment">//   setName(){  // 等价于 setName:functuion(){}</span>
+
+  <span class="token comment">//   }</span>
+  <span class="token comment">// }</span>
+
+  <span class="token comment">// console.log(person);</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="扩展对象" tabindex="-1"><a class="header-anchor" href="#扩展对象" aria-hidden="true">#</a> 扩展对象</h2><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code>  <span class="token comment">// 扩展对象</span>
+  <span class="token comment">// const person ={}</span>
+  <span class="token comment">// person.age = 30</span>
+
+  <span class="token comment">//  </span>
+  <span class="token comment">// person[&#39;abc&#39; + 123] = function(){</span>
+  <span class="token comment">// console.log(this)</span>
+  <span class="token comment">// }</span>
+
+  <span class="token comment">// console.log(person);</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="对象方法" tabindex="-1"><a class="header-anchor" href="#对象方法" aria-hidden="true">#</a> 对象方法</h2><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code>  <span class="token comment">// 对象方法 </span>
+
+  <span class="token comment">// is 比较 类型和值</span>
+  <span class="token comment">// console.log(NaN === NaN);  // false</span>
+  <span class="token comment">//  </span>
+  <span class="token comment">// console.log(Object.is(NaN,NaN));</span>
+
+  <span class="token comment">//  assgin 浅拷贝 对象合并</span>
+  <span class="token comment">// Object.assign(target,...obj})</span>
+  <span class="token comment">// const newObj = Object.assign({},{a:1},{b:2})</span>
+  <span class="token comment">// console.log(newObj)</span>
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="symbol-函数" tabindex="-1"><a class="header-anchor" href="#symbol-函数" aria-hidden="true">#</a> Symbol 函数</h2><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code>  <span class="token comment">// Symbol</span>
+  <span class="token comment">// 定义的变量独无二</span>
+
+  <span class="token comment">// const name = Symbol(&#39;name&#39;)</span>
+  <span class="token comment">// const name2 = Symbol(&#39;name&#39;)</span>
+
+  <span class="token comment">// console.log(name === name2);//false</span>
+
+  <span class="token comment">// 最大用处 ，定义对象私有属性 ，但是无法遍历， Object.keys() 返回空</span>
+
+  <span class="token comment">// const name = Symbol(&#39;name&#39;)</span>
+  <span class="token comment">// const person = {}</span>
+
+  <span class="token comment">// person[name] = &#39;lojzes&#39;</span>
+  <span class="token comment">// 必须是[] 取值 不能用点</span>
+  <span class="token comment">// console.log(person[name]);</span>
+
+  <span class="token comment">// 获取 Symbol 的属性</span>
+
+  <span class="token comment">// let  a = Object.getOwnPropertySymbols(person)</span>
+  <span class="token comment">// let a = Reflect.ownKeys(person)</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="数据类型" tabindex="-1"><a class="header-anchor" href="#数据类型" aria-hidden="true">#</a> 数据类型</h2><h3 id="set" tabindex="-1"><a class="header-anchor" href="#set" aria-hidden="true">#</a> set</h3><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code><span class="token comment">// 数据类型</span>
+  <span class="token comment">//  set 不重复 有序</span>
+  <span class="token comment">// const set = new Set()</span>
+  <span class="token comment">// // 添加</span>
+  <span class="token comment">// set.add(1)</span>
+  <span class="token comment">// set.add(1)</span>
+  <span class="token comment">// set.add(&#39;1&#39;)</span>
+  <span class="token comment">// set.add(&#39;2&#39;)</span>
+  <span class="token comment">// set.add([&#39;a&#39;,&#39;b&#39;,&#39;c&#39;])</span>
+  <span class="token comment">// 删除</span>
+  <span class="token comment">// set.delete(1)</span>
+  <span class="token comment">// //</span>
+  <span class="token comment">// set.has(1)</span>
+
+  <span class="token comment">// console.log(set)</span>
+  <span class="token comment">// console.log(set.has(1));</span>
+
+  <span class="token comment">// 遍历, set 类型变量，key 和 val 相等</span>
+  <span class="token comment">// set.forEach((val,key)=&gt;{</span>
+  <span class="token comment">//   console.log(val);</span>
+  <span class="token comment">// })</span>
+
+  <span class="token comment">//  数组转set</span>
+  <span class="token comment">// const s = new Set([1,2,3])</span>
+  <span class="token comment">// console.log(s);</span>
+  <span class="token comment">// // set 转 数组</span>
+  <span class="token comment">// const arr = [...s]</span>
+  <span class="token comment">// console.log(arr);</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="map" tabindex="-1"><a class="header-anchor" href="#map" aria-hidden="true">#</a> map</h3><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code>  <span class="token comment">// map  key 任意类型且有序</span>
+
+  <span class="token comment">// const map = new Map()</span>
+
+  <span class="token comment">// map.set(&#39;name&#39;,&#39;张三&#39;)</span>
+  <span class="token comment">// map.set(&#39;age&#39;,20)</span>
+
+  <span class="token comment">// console.log(map.has(&#39;name&#39;));</span>
+
+  <span class="token comment">// console.log(map.get(&#39;name&#39;));</span>
+
+  <span class="token comment">// console.log(map.delete(&#39;name&#39;));</span>
+  <span class="token comment">// console.log(map);</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="数组" tabindex="-1"><a class="header-anchor" href="#数组" aria-hidden="true">#</a> 数组</h3><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code><span class="token comment">// Array 方法  from   of</span>
+
+  <span class="token comment">// const a = Array.of(1,2,3,4)</span>
+  <span class="token comment">// console.log(a);</span>
+
+  <span class="token comment">//  from 可以将伪数组转换为真数组</span>
+  <span class="token comment">//  示例： 比如获取 ul 下面的li ,转换为数组</span>
+  <span class="token comment">//  Array.from(&#39;获取li对象&#39;)</span>
+
+  <span class="token keyword">const</span> a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+  <span class="token comment">// 向尾部插入</span>
+  a<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+  a<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+  a<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">)</span>
+  a<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">5</span><span class="token punctuation">)</span>
+  a<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+  <span class="token comment">// 从头插入</span>
+  a<span class="token punctuation">.</span><span class="token function">unshift</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+  <span class="token comment">// 删除并返回第一个元素</span>
+  a<span class="token punctuation">.</span><span class="token function">shift</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token comment">// 删除最后一个元素，并返回</span>
+  <span class="token comment">// a.pop()</span>
+  <span class="token comment">// console.log(a)</span>
+
+  <span class="token comment">// 找出第一个符合条件的元素</span>
+  <span class="token comment">// const el = a.find((a)=&gt;(a &lt; 0))</span>
+  <span class="token comment">// console.log(el);</span>
+
+  <span class="token comment">// const index = a.findIndex((a)=&gt;(a &lt; 0))</span>
+  <span class="token comment">// console.log(index);</span>
+
+  <span class="token comment">// 遍历</span>
+  <span class="token comment">// console.log(a.keys());</span>
+  <span class="token comment">// // 遍历index</span>
+  <span class="token comment">// for(let index of a.keys()){</span>
+  <span class="token comment">// console.log(index);</span>
+  <span class="token comment">// }</span>
+  <span class="token comment">// // 变量 value</span>
+  <span class="token comment">// for(let ele of a.values()){</span>
+  <span class="token comment">// console.log(ele);</span>
+  <span class="token comment">// }</span>
+  <span class="token comment">//</span>
+
+  <span class="token comment">// for(let [index,value] of a.entries()){</span>
+  <span class="token comment">// console.log(index , value);</span>
+  <span class="token comment">// }</span>
+
+  <span class="token comment">//  是否包含 : 包含返回 true 不包含返回 false</span>
+  <span class="token comment">// console.log(a.includes(1));</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="promise" tabindex="-1"><a class="header-anchor" href="#promise" aria-hidden="true">#</a> Promise</h2><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code><span class="token comment">// Promise</span>
+  <span class="token comment">//  提供异步编程能力，有三个状态  pending(执行中)  resolve(成功)  rejected(失败)</span>
+  <span class="token comment">// 成功与失败会保存到 Promise 容器内，同 then 获取结果</span>
+
+  <span class="token comment">// const pro = new Promise(function (resolve, rejected) {</span>
+  <span class="token comment">//   // 模拟后端数据</span>
+  <span class="token comment">//   let obj = {}</span>
+
+  <span class="token comment">//   setTimeout(() =&gt; {</span>
+  <span class="token comment">//     obj = {</span>
+  <span class="token comment">//       code: 201,</span>
+  <span class="token comment">//       msg: &#39;成功&#39;,</span>
+  <span class="token comment">//       data: {</span>
+  <span class="token comment">//         id: 1,</span>
+  <span class="token comment">//         name: &#39;lojzes&#39;</span>
+  <span class="token comment">//       }</span>
+  <span class="token comment">//     }</span>
+  <span class="token comment">//     //</span>
+  <span class="token comment">//     if (obj.code === 200) {</span>
+  <span class="token comment">//       resolve(obj)</span>
+  <span class="token comment">//     } else {</span>
+  <span class="token comment">//       rejected(&#39;失败&#39;)</span>
+  <span class="token comment">//     }</span>
+  <span class="token comment">//   }, 5000)</span>
+  <span class="token comment">// })</span>
+
+  <span class="token comment">// pro.then((success) =&gt; {</span>
+  <span class="token comment">//   // 成功返回</span>
+  <span class="token comment">//   console.log(success)</span>
+  <span class="token comment">// }, (error) =&gt; {</span>
+  <span class="token comment">//   // 失败返回</span>
+  <span class="token comment">//   console.log(error);</span>
+  <span class="token comment">// })</span>
+
+  <span class="token comment">// 一般使用</span>
+
+  <span class="token comment">// function request(timeOut) {</span>
+  <span class="token comment">//   return new Promise(function (resolve, rejected) {</span>
+  <span class="token comment">//     let obj = {}</span>
+  <span class="token comment">//     setTimeout(() =&gt; {</span>
+  <span class="token comment">//       obj = {</span>
+  <span class="token comment">//         code: 201,</span>
+  <span class="token comment">//         msg: &#39;成功&#39;,</span>
+  <span class="token comment">//         data: {</span>
+  <span class="token comment">//           id: 1,</span>
+  <span class="token comment">//           name: &#39;lojzes&#39;</span>
+  <span class="token comment">//         }</span>
+  <span class="token comment">//       }</span>
+  <span class="token comment">//       //</span>
+  <span class="token comment">//       if (obj.code === 200) {</span>
+  <span class="token comment">//         resolve(obj)</span>
+  <span class="token comment">//       } else {</span>
+  <span class="token comment">//         rejected(&#39;失败&#39;)</span>
+  <span class="token comment">//       }</span>
+  <span class="token comment">//     }, timeOut)</span>
+  <span class="token comment">//   });</span>
+  <span class="token comment">// }</span>
+  <span class="token comment">// </span>
+  <span class="token comment">// request(5000).then((success) =&gt; {</span>
+  <span class="token comment">//   // 成功返回</span>
+  <span class="token comment">//   console.log(success)</span>
+  <span class="token comment">// }, (error) =&gt; {</span>
+  <span class="token comment">//   // 失败返回</span>
+  <span class="token comment">//   console.log(error);</span>
+  <span class="token comment">// })</span>
+
+  <span class="token comment">// request(5000).then((success) =&gt; {</span>
+  <span class="token comment">//   // 成功返回</span>
+  <span class="token comment">//   console.log(success)</span>
+  <span class="token comment">// }).catch((err)=&gt;{</span>
+  <span class="token comment">//   console.log(err);</span>
+  <span class="token comment">// })</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="async" tabindex="-1"><a class="header-anchor" href="#async" aria-hidden="true">#</a> async</h2><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code><span class="token comment">//  async  把函数转换为 promise </span>
+  <span class="token comment">//  await 只能在 async 内部使用</span>
+  <span class="token comment">// async function add(){</span>
+  <span class="token comment">//    return await &#39;hello world&#39;</span>
+  <span class="token comment">// }</span>
+
+  <span class="token comment">// async function add(){</span>
+  <span class="token comment">//    throw new Error(&#39;出错了&#39;)</span>
+  <span class="token comment">// }</span>
+
+  <span class="token comment">// 只要一个await 失败，后面都不执行，可以通过 try catch 解决</span>
+  <span class="token comment">// async function add(){</span>
+  <span class="token comment">//    await Promise.reject(&#39;失败&#39;)</span>
+  <span class="token comment">//    await Promise.resolve(&#39;成功&#39;)</span>
+  <span class="token comment">// }</span>
+
+  <span class="token comment">// async function add() {</span>
+  <span class="token comment">//   try {</span>
+  <span class="token comment">//     await Promise.reject(&#39;失败&#39;)</span>
+  <span class="token comment">//   } catch (error) {</span>
+  <span class="token comment">//   }</span>
+  <span class="token comment">//   return Promise.resolve(&#39;成功&#39;)</span>
+  <span class="token comment">// }</span>
+
+  <span class="token comment">// add().then(success =&gt; console.log(success)).catch(err =&gt; console.log(err))</span>
+  <span class="token comment">//.finaly{//不管成功还是失败，都会执行}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="class" tabindex="-1"><a class="header-anchor" href="#class" aria-hidden="true">#</a> class</h2><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code><span class="token comment">//  class</span>
+  <span class="token comment">//  es5 定义类</span>
+
+  <span class="token comment">// function Person(name,age){</span>
+  <span class="token comment">//   this.name = name</span>
+  <span class="token comment">//   this.age = age</span>
+  <span class="token comment">// }</span>
+
+  <span class="token comment">//   //  添加方法</span>
+  <span class="token comment">// Person.prototype.sayName = function(){</span>
+  <span class="token comment">//   console.log(this.name)</span>
+  <span class="token comment">// }</span>
+
+  <span class="token comment">// Person.prototype.sayAge = function(){</span>
+  <span class="token comment">//   console.log(this.age)</span>
+  <span class="token comment">// }</span>
+  <span class="token comment">// let person = new Person(&#39;lojzes&#39;,30)</span>
+
+  <span class="token comment">// console.log(person)</span>
+
+  <span class="token comment">// person.sayName()</span>
+  <span class="token comment">// person.sayAge()</span>
+
+  <span class="token comment">// es6</span>
+  <span class="token comment">// class Person{</span>
+
+  <span class="token comment">//    constructor(name,age){</span>
+  <span class="token comment">//       this.name = name</span>
+  <span class="token comment">//       this.age = age</span>
+  <span class="token comment">//    }</span>
+
+  <span class="token comment">//    sayName(){</span>
+  <span class="token comment">//       console.log(this.name);</span>
+  <span class="token comment">//    }</span>
+
+  <span class="token comment">// }</span>
+  <span class="token comment">// // 添加方法</span>
+  <span class="token comment">// Object.assign(Person.prototype,{</span>
+  <span class="token comment">//   sayAge(){</span>
+  <span class="token comment">//     console.log(this.age);</span>
+  <span class="token comment">//    }</span>
+  <span class="token comment">// })</span>
+
+  <span class="token comment">// const peron = new Person(&#39;lojzes&#39;,30)</span>
+  <span class="token comment">// console.log(peron);</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="继承" tabindex="-1"><a class="header-anchor" href="#继承" aria-hidden="true">#</a> 继承</h2><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code>  <span class="token comment">//  继承</span>
+  <span class="token keyword">class</span> <span class="token class-name">Animal</span> <span class="token punctuation">{</span>
+
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">name<span class="token punctuation">,</span> age</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name
+      <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age
+    <span class="token punctuation">}</span>
+    <span class="token function">sayName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">sayAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>age<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">class</span> <span class="token class-name">Dog</span> <span class="token keyword">extends</span> <span class="token class-name">Animal</span><span class="token punctuation">{</span>
+
+   <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">name<span class="token punctuation">,</span>age<span class="token punctuation">,</span>color</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span>age<span class="token punctuation">)</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>color <span class="token operator">=</span> color
+   <span class="token punctuation">}</span>
+   <span class="token function">sayColor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+     console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">const</span> dog <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Dog</span><span class="token punctuation">(</span><span class="token string">&#39;小黄&#39;</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token string">&#39;黄色&#39;</span><span class="token punctuation">)</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>dog<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="模块化" tabindex="-1"><a class="header-anchor" href="#模块化" aria-hidden="true">#</a> 模块化</h3><p>导出：</p><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code><span class="token keyword">export</span> <span class="token keyword">const</span> name <span class="token operator">=</span> <span class="token string">&#39;lojzes&#39;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> age <span class="token operator">=</span> <span class="token number">30</span>
+
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">sayName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token string">&#39;hello &#39;</span> <span class="token operator">+</span> name
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span>
+   <span class="token literal-property property">address</span><span class="token operator">:</span><span class="token string">&#39;beijing&#39;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 默认导出只能是有一个</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> obj
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>导入：</p><div class="language-javascript line-numbers-mode" data-ext="js"><pre class="language-javascript"><code> <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> es6 module <span class="token operator">--</span><span class="token operator">&gt;</span>
+  <span class="token comment">// script  type=&quot;module&quot;&gt;</span>
+
+    <span class="token comment">// import obj,{name,age,sayName} from &#39;./js/sys.js&#39;</span>
+    <span class="token comment">// console.log(name, age);</span>
+
+    <span class="token comment">// console.log(sayName());</span>
+    <span class="token comment">// console.log(obj);</span>
+
+    <span class="token comment">// 导出所有</span>
+    <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span>  obj <span class="token keyword">from</span> <span class="token string">&#39;./js/sys.js&#39;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div><!----><footer class="page-meta"><!----><div class="meta-item git-info"><!----><!----></div></footer><nav class="page-nav"><a href="/study/web/js/js-bom.html" class="nav-link prev" aria-label="js操作bom"><div class="hint"><span class="arrow start"></span>上一页</div><div class="link"><span class="font-icon icon iconfont icon-discover" style=""></span>js操作bom</div></a><!----></nav><!----><!----><!--]--></main><!--]--><footer class="footer-wrapper"><div class="footer"><a href="#">哈哈ICP备00000000号-1</a></div><div class="copyright">Copyright © 2023 lojzes</div></footer></div><!--]--><!--]--><!----><!--]--></div>
+    <script type="module" src="/assets/app-628baf5e.js" defer></script>
+  </body>
+</html>

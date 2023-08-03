@@ -1,0 +1,5 @@
+import{_ as o,X as i,Y as c,Z as e,a1 as r,$ as t,C as s}from"./framework-0b23a550.js";const a={},l={class:"hint-container tip"},_=e("p",{class:"hint-container-title"},"参考",-1),d={href:"https://www.cnblogs.com/greyzeng/p/16902900.html",target:"_blank",rel:"noopener noreferrer"},u={href:"https://www.baeldung.com/spring-cloud-circuit-breaker",target:"_blank",rel:"noopener noreferrer"},h=e("p",null,[e("code",null,"spring Cloud Circuit breaker"),r(" 提供了一个跨越不同断路器实现的抽象。它提供了一个一致的API，可以在你的应用程序中使用，允许你的开发者选择最适合你的应用程序需求的断路器实现。")],-1),p=e("p",null,"它还支持的实现有如下几种",-1),k=e("pre",null,[e("code",null,`Resilience4j
+Hystrix
+Sentinel
+Spring Retry
+`)],-1),f=e("h2",{id:"hystrix",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#hystrix","aria-hidden":"true"},"#"),r(" Hystrix")],-1);function g(m,x){const n=s("ExternalLinkIcon");return i(),c("div",null,[e("div",l,[_,e("p",null,[e("a",d,[r("Spring Cloud Circuit Breaker"),t(n)])]),e("p",null,[e("a",u,[r("Quick Guide to Spring Cloud Circuit Breaker"),t(n)])])]),h,p,k,f])}const C=o(a,[["render",g],["__file","circuitbreaker.html.vue"]]);export{C as default};

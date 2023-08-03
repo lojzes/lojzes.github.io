@@ -1,1 +1,0 @@
-import{_ as t,X as n,Y as c,Z as e}from"./framework-b6ea3384.js";const s={},o=e("div",{class:"hint-container info"},[e("p",{class:"hint-container-title"},"参考")],-1),_=[o];function a(i,r){return n(),c("div",null,_)}const d=t(s,[["render",a],["__file","基础.html.vue"]]);export{d as default};

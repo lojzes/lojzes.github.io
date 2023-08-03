@@ -1,0 +1,1 @@
+import{_ as t,X as n,Y as c,Z as e}from"./framework-0b23a550.js";const o={},s=e("div",{class:"hint-container tip"},[e("p",{class:"hint-container-title"},"参考")],-1),i=[s];function _(a,r){return n(),c("div",null,i)}const d=t(o,[["render",_],["__file","openid.html.vue"]]);export{d as default};
